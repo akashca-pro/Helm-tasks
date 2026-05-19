@@ -48,6 +48,26 @@ prometheusOperator:
 alertmanager:
   enabled: true
 
+  config:
+    global: {}
+
+    route:
+      receiver: "null"
+
+    receivers:
+      - name: "null"
+
+    inhibit_rules:
+      - source_matchers:
+          - alertname="task-2-55-cpu-alert"
+          - severity="warning"
+
+        target_matchers:
+          - alertname="task-2-55-pod-restart-alert"
+
+        equal:
+          - instance
+
   ingress:
     enabled: true
     ingressClassName: nginx
